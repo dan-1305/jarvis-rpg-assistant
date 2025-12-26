@@ -199,19 +199,38 @@ python main.py search "keyword"
 
 ## 🧪 TESTING
 
-Dự án có test coverage tối thiểu 80% cho core modules.
+### Test Coverage Status
+
+- **25 tests passing** (100% pass rate)
+- **Core modules coverage:**
+  - `config.py`: 100% ✅
+  - `key_manager.py`: 88% ✅
+  - `database.py`: 72% ✅
+  - `ai_agent.py`: ~35% (basic functionality)
+- **Total coverage:** 34% (utilities & integration modules ongoing)
+
+### Running Tests
 
 ```bash
 # Install test dependencies
 pip install -r requirements.txt
 
 # Run tests with coverage
-./run_tests.bat    # Windows
-./run_tests.sh     # Linux/Mac
+python -m pytest tests/ --cov=jarvis_core --cov=src
 
-# View coverage report
-# Open htmlcov/index.html
+# Or use shortcuts
+tools\run_tests.bat    # Windows
+tools/run_tests.sh     # Linux/Mac
+
+# View detailed HTML coverage report
+# Open htmlcov/index.html in browser
 ```
+
+### Test Configuration
+
+- Tests configured in `pytest.ini`
+- Coverage threshold: 0% (ongoing improvement)
+- Target: 80% for production-critical modules
 
 ---
 
