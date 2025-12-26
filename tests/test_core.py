@@ -25,7 +25,7 @@ def temp_db():
 @pytest.fixture
 def key_manager():
     """Create a key manager instance for testing"""
-    return KeyManager()
+    return KeyManager(api_keys=["test-key-1", "test-key-2", "test-key-3"])
 
 class TestDatabaseManager:
     

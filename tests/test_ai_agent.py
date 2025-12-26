@@ -6,7 +6,7 @@ import google.generativeai as genai
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from jarvis_core.ai_agent import AIAgent
+from jarvis_core.ai_agent import AIService
 
 class TestAIAgent:
     
@@ -27,7 +27,7 @@ class TestAIAgent:
         """Create AI agent with mocked dependencies"""
         with patch('google.generativeai.configure'):
             with patch('google.generativeai.GenerativeModel') as mock_model:
-                agent = AIAgent()
+                agent = AIService()
                 yield agent
     
     def test_init_ai_agent(self, ai_agent):

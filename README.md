@@ -111,7 +111,18 @@ docker compose up -d --build
 docker compose logs -f
 ```
 
-### 2. Đồng bộ Dữ liệu Local (Task Scheduler)
+### 2. Docker Troubleshooting (Windows)
+
+**Lỗi:** `error during connect: Head "http://%2F%2F.%2Fpipe%2FdockerDesktopLinuxEngine/_ping"`
+
+**Nguyên nhân:** Docker Desktop chưa chạy hoặc đang khởi động.
+
+**Giải pháp:**
+- Khởi động Docker Desktop
+- Chờ Docker Engine khởi động hoàn tất (icon Docker màu xanh)
+- Chạy lại lệnh docker compose
+
+### 3. Đồng bộ Dữ liệu Local (Task Scheduler)
 
 Để đảm bảo máy Local luôn có Database mới nhất từ GitHub, sử dụng script `.bat` với lệnh:
 

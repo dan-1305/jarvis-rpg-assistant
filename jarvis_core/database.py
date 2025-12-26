@@ -127,89 +127,41 @@ class DatabaseManager:
                 cursor = conn.cursor()
                 cursor.execute("PRAGMA journal_mode=WAL")
 
-                # Create tables
-                cursor.executescript("""
-                                     CREATE TABLE IF NOT EXISTS user_profile
-                                     (
-                                         id
-                                         INTEGER
-                                         PRIMARY
-                                         KEY
-                                         AUTOINCREMENT,
-                                         level
-                                         INTEGER
-                                         NOT
-                                         NULL
-                                         DEFAULT
-                                         1,
-                                         xp
-                                         INTEGER
-                                         NOT
-                                         NULL
-                                         DEFAULT
-                                         0,
-                                         hp
-                                         INTEGER
-                                         NOT
-                                         NULL
-                                         DEFAULT
-                                         100,
-                                         status
-                                         TEXT,
-                                         class
-                                         TEXT,
-                                         last_update
-                                         DATE
-                                         DEFAULT
-                                         CURRENT_DATE
-                                     );
+                # Create user_profile table
+                cursor.execute("""
+                    CREATE TABLE IF NOT EXISTS user_profile (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        level INTEGER NOT NULL DEFAULT 1,
+                        xp INTEGER NOT NULL DEFAULT 0,
+                        hp INTEGER NOT NULL DEFAULT 100,
+                        status TEXT,
+                        class TEXT,
+                        last_update DATE DEFAULT CURRENT_DATE
+                    )
+                """)
 
-                                     CREATE TABLE IF NOT EXISTS vocab
-                                     (
-                                         id
-                                         INTEGER
-                                         PRIMARY
-                                         KEY
-                                         AUTOINCREMENT,
-                                         word
-                                         TEXT
-                                         UNIQUE
-                                         NOT
-                                         NULL,
-                                         meaning
-                                         TEXT,
-                                         learning_level
-                                         INTEGER
-                                         DEFAULT
-                                         0,
-                                         correct_count
-                                         INTEGER
-                                         DEFAULT
-                                         0,
-                                         wrong_count
-                                         INTEGER
-                                         DEFAULT
-                                         0,
-                                         next_review
-                                         DATE,
-                                         created_at
-                                         DATE
-                                         DEFAULT
-                                         CURRENT_DATE,
-                                         last_reviewed
-                                         DATE,
-                                         tags
-                                         TEXT
-                                     );
+                # Create vocab table
+                cursor.execute("""
+                    CREATE TABLE IF NOT EXISTS vocab (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        word TEXT UNIQUE NOT NULL,
+                        meaning TEXT,
+                        learning_level INTEGER DEFAULT 0,
+                        correct_count INTEGER DEFAULT 0,
+                        wrong_count INTEGER DEFAULT 0,
+                        next_review DATE,
+                        created_at DATE DEFAULT CURRENT_DATE,
+                        last_reviewed DATE,
+                        tags TEXT
+                    )
+                """)
 
-                                     CREATE INDEX IF NOT EXISTS idx_vocab_review ON vocab(next_review);
-                                     CREATE INDEX IF NOT EXISTS idx_vocab_word ON vocab(word);
+                # Create indexes
+                cursor.execute("CREATE INDEX IF NOT EXISTS idx_vocab_review ON vocab(next_review)")
+                cursor.execute("CREATE INDEX IF NOT EXISTS idx_vocab_word ON vocab(word)")
 
-                                     -- FIX: Bắt buộc ID phải là 1. Nếu ID 1 đã có thì IGNORE (Bỏ qua).
-                                     INSERT
-                                     OR IGNORE INTO user_profile (id, level, xp, hp, status)
-                    VALUES (1, 1, 0, 100, 'active');
-                                     """)
+                # Insert default user profile
+                cursor.execute("INSERT OR IGNORE INTO user_profile (id, level, xp, hp, status) VALUES (1, 1, 0, 100, 'active')")
 
                 # Update schema version
                 cursor.execute("CREATE TABLE IF NOT EXISTS schema_info (version INTEGER PRIMARY KEY)")
