@@ -19,7 +19,7 @@ print("🔍 JARVIS PUBLIC READINESS CHECK - 26/12/2025\n")
 
 # 1. Tests
 print("1. Running tests...")
-run_command("python -m pytest --cov=jarvis_core --cov=src -q")
+run_command("python -m pytest tests/ --cov=jarvis_core --cov=src -q")
 
 # 2. Docker build
 print("\n2. Docker build test...")
