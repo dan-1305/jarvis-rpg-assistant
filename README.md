@@ -1,5 +1,10 @@
 # 🤖 JARVIS V1.0: PERSONAL DEVOPS ASSISTANT (RPG DAILY QUEST SYSTEM)
 
+[![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://www.python.org/downloads/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Docker](https://img.shields.io/badge/Docker-Ready-blue.svg)](Dockerfile)
+[![GitHub](https://img.shields.io/badge/GitHub-dan--1305/jarvis--rpg--assistant-black.svg)](https://github.com/dan-1305/jarvis-rpg-assistant)
+
 **Status:** Production Stable | **Architecture:** Modular Microservices | **AI Core:** Gemini 2.5 Flash
 
 > ⚠️ **SECURITY WARNING**: Never commit `.env` file to the repository. Always use `.env.example` as a template.
