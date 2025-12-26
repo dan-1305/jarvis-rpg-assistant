@@ -215,6 +215,31 @@ pip install -r requirements.txt
 
 ---
 
+## 🛠️ DEVELOPMENT TOOLS
+
+### Scripts hỗ trợ phát triển
+
+```bash
+# Run full test suite with coverage
+python -m pytest tests/ --cov=jarvis_core --cov=src -v
+
+# Public readiness check (before pushing to GitHub)
+python tools/public_readiness_check.py
+
+# Launch Jarvis CLI
+python main.py [command]
+```
+
+### Quick Commands
+
+```bash
+# Check project status
+tools\run_tests.bat               # Run all tests
+tools\public_readiness_check.py   # Final security & build check
+```
+
+---
+
 ## 📊 KIẾN TRÚC HỆ THỐNG
 
 ### Key Manager Flow
