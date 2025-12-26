@@ -64,15 +64,19 @@ class DatabaseManager:
 
     @contextmanager
     def _get_connection(self) -> Iterator[sqlite3.Connection]:
-        """Context manager for database connections."""
+        """Context manager for database connections with transaction lock."""
         conn = None
         try:
-            conn = sqlite3.connect(self.db_path)
+            conn = sqlite3.connect(self.db_path, timeout=30.0)
             conn.row_factory = sqlite3.Row
             conn.execute("PRAGMA foreign_keys = ON")
+            conn.execute("PRAGMA busy_timeout = 30000")
+            conn.execute("BEGIN IMMEDIATE")
             yield conn
         except sqlite3.Error as e:
             logger.error(f"Database error: {e}")
+            if conn:
+                conn.rollback()
             raise DatabaseError(f"Database operation failed: {e}") from e
         finally:
             if conn:

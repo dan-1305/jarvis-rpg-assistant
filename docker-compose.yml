@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  jarvis-bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: jarvis-rpg-assistant
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+    environment:
+      - PYTHONUNBUFFERED=1
+    networks:
+      - jarvis-network
+
+networks:
+  jarvis-network:
+    driver: bridge
