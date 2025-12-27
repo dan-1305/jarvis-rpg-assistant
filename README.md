@@ -4,6 +4,10 @@
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Docker](https://img.shields.io/badge/Docker-Ready-blue.svg)](Dockerfile)
 [![GitHub](https://img.shields.io/badge/GitHub-dan--1305/jarvis--rpg--assistant-black.svg)](https://github.com/dan-1305/jarvis-rpg-assistant)
+[![Tests](https://img.shields.io/badge/tests-25%20passed-brightgreen.svg)](tests/)
+[![Coverage](https://img.shields.io/badge/coverage-34%25-yellow.svg)](htmlcov/index.html)
+[![GitHub stars](https://img.shields.io/github/stars/dan-1305/jarvis-rpg-assistant?style=social)](https://github.com/dan-1305/jarvis-rpg-assistant/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/dan-1305/jarvis-rpg-assistant?style=social)](https://github.com/dan-1305/jarvis-rpg-assistant/network/members)
 
 **Status:** Production Stable | **Architecture:** Modular Microservices | **AI Core:** Gemini 2.5 Flash
 
@@ -18,6 +22,7 @@ Dự án này mô phỏng một **Hệ thống Game RPG Đời Thực**, nơi ng
 ## 🚀 CÁC TÍNH NĂNG CHÍNH (CORE FEATURES)
 
 ### 1. 🎮 Hệ thống Quản lý Nhiệm vụ (RPG System)
+
 **Evolve Protocol** ([src/bot_evolve.py](src/bot_evolve.py)): Chạy tự động vào 23:00 hàng đêm.
 
 - Phân tích Task hoàn thành từ Google Tasks.
@@ -25,22 +30,27 @@ Dự án này mô phỏng một **Hệ thống Game RPG Đời Thực**, nơi ng
 - Cập nhật hồ sơ nhân vật ([data/user_profile.txt](data/user_profile.txt)) và commit lên GitHub.
 
 ### 2. 🧠 Báo cáo Chiến lược (Daily Intelligence)
+
 **Daily Briefing** ([src/bot_daily.py](src/bot_daily.py)): Chạy định kỳ 4 lần/ngày (8h, 12h, 16h, 20h).
 
 - **Logic:** Phân tích Lịch Google + Weather + Todo List để đưa ra lời khuyên tác chiến, câu đùa (Dev Jokes) và động lực.
 
 ### 3. 📚 Hệ thống Học Tập (English Mastery)
+
 **Auto Hunter** ([src/auto_learn.py](src/auto_learn.py)): Tự động săn 5 từ vựng chuyên ngành Tech/System Design mỗi sáng.
 
 **AI Teacher** ([src/bot_teacher.py](src/bot_teacher.py)):
+
 - **Sáng:** Dạy từ mới (Mode: `new`).
 - **Chiều:** Dò bài cũ (Mode: `review`).
 - **Database:** Lưu trữ từ vựng vĩnh viễn trong SQLite ([data/jarvis.db](data/jarvis.db)) với cơ chế cam kết dữ liệu (`conn.commit`) chặt chẽ.
 
 ### 4. 📝 Ghi chú Nhanh (Quick Note CLI)
+
 **Module** ([src/note.py](src/note.py)): Cho phép ghi lại ý tưởng nhanh chóng từ dòng lệnh vào [data/journal.md](data/journal.md).
 
 ### 5. 🛡️ Hệ thống Chịu Lỗi (Fault Tolerance Architecture)
+
 - **Key Rotation:** Tự động xoay vòng danh sách API Keys (`GEMINI_API_KEYS`) khi gặp lỗi Quota.
 - **Time-Based Cooldown:** Tự động "làm nguội" Key trong 60s nếu gặp lỗi Rate Limit (429).
 - **Model Fallback:** Tự động chuyển từ `gemini-2.5-flash` sang `gemini-2.5-lite` nếu quá tải.
@@ -118,15 +128,20 @@ docker compose logs -f
 **Nguyên nhân:** Docker Desktop chưa chạy hoặc đang khởi động.
 
 **Giải pháp:**
+
 - Khởi động Docker Desktop
 - Chờ Docker Engine khởi động hoàn tất (icon Docker màu xanh)
 - Chạy lại lệnh docker compose
 
 ### 3. Đồng bộ Dữ liệu Local (Task Scheduler)
 
-Để đảm bảo máy Local luôn có Database mới nhất từ GitHub, sử dụng script `.bat` với lệnh:
+Để đảm bảo máy Local luôn có Database mới nhất từ GitHub, sử dụng script:
 
 ```bash
+# Windows
+tools\daily_sync_db.bat
+
+# Or manually
 git pull origin main
 ```
 
@@ -208,12 +223,14 @@ python main.py search "keyword"
 ### Coverage Breakdown
 
 **Core Modules (Production-Critical):**
+
 - `jarvis_core/config.py`: **100%** ✅
 - `jarvis_core/key_manager.py`: **88%** ✅
 - `jarvis_core/database.py`: **72%** ✅
 - `jarvis_core/ai_agent.py`: **34%** (basic functionality covered)
 
 **Overall Coverage:**
+
 - **Total:** 34% (524/798 lines)
 - **Target:** 70-80% for core modules
 - **Status:** Core modules meet target, utilities/integration modules ongoing
@@ -245,30 +262,46 @@ tools/run_tests.sh     # Linux/Mac
 
 ## 🛠️ DEVELOPMENT TOOLS
 
-### Scripts hỗ trợ phát triển
+### Tools Directory Structure
 
-```bash
-# Run full test suite with coverage
-python -m pytest tests/ --cov=jarvis_core --cov=src -v
+All development scripts are organized in `tools/`:
 
-# Public readiness check (before pushing to GitHub)
-python tools/public_readiness_check.py
-
-# Launch Jarvis CLI
-python main.py [command]
-
-# Run Streamlit Dashboard (Visual Stats)
-streamlit run tools/dashboard.py
+```
+tools/
+├── jarvis.bat                    # Quick launcher (Windows)
+├── jarvis_launcher.bat           # Full launcher with auto-setup
+├── daily_sync_db.bat             # Database sync script
+├── run_tests.bat / run_tests.sh  # Test runner
+├── check_readiness.bat           # Security check
+├── public_readiness_check.py     # Pre-commit validation
+├── dashboard.py                  # Streamlit dashboard
+├── dev_log.md                    # Development notes
+├── test.py                       # Manual testing script
+└── ... (other dev utilities)
 ```
 
 ### Quick Commands
 
 ```bash
-# Check project status
-tools\run_tests.bat               # Run all tests
-tools\public_readiness_check.py   # Final security & build check
-tools\dashboard.py                # Launch visual dashboard
+# Run tests
+tools\run_tests.bat               # Windows
+tools/run_tests.sh                # Linux/Mac
+
+# Launch Jarvis CLI
+tools\jarvis.bat [command]        # Quick start
+tools\jarvis_launcher.bat         # Full setup with auto-venv
+
+# Database sync
+tools\daily_sync_db.bat           # Sync database from GitHub
+
+# Pre-commit checks
+python tools\public_readiness_check.py   # Security & build check
+
+# Visual dashboard
+streamlit run tools\dashboard.py         # Launch stats dashboard
 ```
+
+![ImageTheWeb](image.png)
 
 ---
 
@@ -310,6 +343,7 @@ streamlit run tools/dashboard.py
 ## 📊 KIẾN TRÚC HỆ THỐNG
 
 ### Key Manager Flow
+
 ```
 GEMINI_API_KEYS → KeyManager → Round-Robin Rotation
                               ↓
@@ -321,6 +355,7 @@ GEMINI_API_KEYS → KeyManager → Round-Robin Rotation
 ```
 
 ### Daily Workflow
+
 ```
 GitHub Actions (Cron) → Python Script → AI Agent → Telegram
                               ↓
@@ -330,6 +365,7 @@ GitHub Actions (Cron) → Python Script → AI Agent → Telegram
 ```
 
 ### Error Handling
+
 ```
 Exception → ErrorNotifier → Telegram Alert to Admin
                                     ↓
@@ -341,6 +377,7 @@ Exception → ErrorNotifier → Telegram Alert to Admin
 ## 🚀 DEPLOYMENT
 
 ### Local Development
+
 ```bash
 # Use polling mode
 USE_WEBHOOK=false
@@ -348,6 +385,7 @@ python -m jarvis_core.telegram_webhook
 ```
 
 ### Production (Render/Heroku)
+
 ```bash
 # Use webhook mode
 USE_WEBHOOK=true
@@ -361,6 +399,7 @@ Xem chi tiết trong [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)
 ## 🔧 CÁCH CẢI THIỆN
 
 ### Đã Fix
+
 - ✅ Sửa `requirements.txt` (`dotenv` → `python-dotenv`)
 - ✅ Xóa duplicate `APIKeyManager` trong `ai_agent.py`
 - ✅ Refactor `bot_teacher.py` - không manipulate `sys.argv`
@@ -372,6 +411,7 @@ Xem chi tiết trong [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)
 - ✅ Webhook support cho production
 
 ### Cần Làm Tiếp
+
 - ⚠️ Implement database migration system
 - ⚠️ Add rate limiting cho user input
 - ⚠️ Improve concurrent write handling
@@ -396,3 +436,38 @@ Xem chi tiết trong [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)
 MIT License - See LICENSE file for details
 
 **Note:** Dự án này được thiết kế theo tư duy "System Thinking": Mọi thành phần đều có thể thay thế, mở rộng và tự phục hồi lỗi.
+
+---
+
+## 🤝 CONTRIBUTING
+
+Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+### Quick Start for Contributors
+
+1. Fork the repository
+2. Clone your fork: `git clone https://github.com/YOUR_USERNAME/jarvis-rpg-assistant.git`
+3. Create a branch: `git checkout -b feature/your-feature`
+4. Make changes and test: `python -m pytest tests/ -v`
+5. Commit: `git commit -m "feat: Your feature"`
+6. Push and create Pull Request
+
+### Good First Issues
+
+- Improve test coverage for `jarvis_core/db_sync.py` and `jarvis_core/error_notifier.py`
+- Add integration tests for Docker deployment
+- Improve documentation with examples
+
+---
+
+## 📞 SUPPORT
+
+- **Issues:** [GitHub Issues](https://github.com/dan-1305/jarvis-rpg-assistant/issues)
+- **Discussions:** [GitHub Discussions](https://github.com/dan-1305/jarvis-rpg-assistant/discussions)
+- **Documentation:** [docs/](docs/)
+
+---
+
+## ⭐ STAR HISTORY
+
+If you find this project helpful, please give it a star! ⭐
