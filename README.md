@@ -2,10 +2,11 @@
 
 [![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Docker](https://img.shields.io/badge/Docker-Ready-blue.svg)](Dockerfile)
-[![GitHub](https://img.shields.io/badge/GitHub-dan--1305/jarvis--rpg--assistant-black.svg)](https://github.com/dan-1305/jarvis-rpg-assistant)
+[![CI/CD](https://github.com/dan-1305/jarvis-rpg-assistant/actions/workflows/ci.yml/badge.svg)](https://github.com/dan-1305/jarvis-rpg-assistant/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/dan-1305/jarvis-rpg-assistant/branch/main/graph/badge.svg)](https://codecov.io/gh/dan-1305/jarvis-rpg-assistant)
+[![Docker](https://img.shields.io/docker/v/dan1305/jarvis-rpg-assistant?label=docker&logo=docker)](https://hub.docker.com/r/dan1305/jarvis-rpg-assistant)
+[![Docker Build](https://github.com/dan-1305/jarvis-rpg-assistant/actions/workflows/docker.yml/badge.svg)](https://github.com/dan-1305/jarvis-rpg-assistant/actions/workflows/docker.yml)
 [![Tests](https://img.shields.io/badge/tests-25%20passed-brightgreen.svg)](tests/)
-[![Coverage](https://img.shields.io/badge/coverage-34%25-yellow.svg)](htmlcov/index.html)
 [![GitHub stars](https://img.shields.io/github/stars/dan-1305/jarvis-rpg-assistant?style=social)](https://github.com/dan-1305/jarvis-rpg-assistant/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/dan-1305/jarvis-rpg-assistant?style=social)](https://github.com/dan-1305/jarvis-rpg-assistant/network/members)
 
@@ -301,7 +302,7 @@ python tools\public_readiness_check.py   # Security & build check
 streamlit run tools\dashboard.py         # Launch stats dashboard
 ```
 
-![ImageTheWeb](image.png)
+Live Demo: jarvis-rpg-assistant-dan1305.streamlit.app
 
 ---
 
@@ -317,6 +318,8 @@ Visual dashboard để theo dõi progress RPG của bạn!
 - 🎯 **Real-time Metrics** - Level, XP, HP stats
 
 ### Local Development
+
+![ImageTheWeb](image.png)
 
 ```bash
 # Install dashboard dependencies
