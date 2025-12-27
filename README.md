@@ -256,6 +256,9 @@ python tools/public_readiness_check.py
 
 # Launch Jarvis CLI
 python main.py [command]
+
+# Run Streamlit Dashboard (Visual Stats)
+streamlit run tools/dashboard.py
 ```
 
 ### Quick Commands
@@ -264,7 +267,43 @@ python main.py [command]
 # Check project status
 tools\run_tests.bat               # Run all tests
 tools\public_readiness_check.py   # Final security & build check
+tools\dashboard.py                # Launch visual dashboard
 ```
+
+---
+
+## 📊 STREAMLIT DASHBOARD
+
+Visual dashboard để theo dõi progress RPG của bạn!
+
+### Features
+
+- 📊 **XP Progress Bar** - Track level advancement
+- 📚 **Vocabulary Stats** - Learning mastery breakdown
+- 📈 **Activity Timeline** - 30-day learning activity chart
+- 🎯 **Real-time Metrics** - Level, XP, HP stats
+
+### Local Development
+
+```bash
+# Install dashboard dependencies
+pip install streamlit plotly pandas
+
+# Run dashboard
+streamlit run tools/dashboard.py
+
+# Access at http://localhost:8501
+```
+
+### Deploy to Streamlit Cloud (FREE)
+
+1. Push code to GitHub
+2. Visit [share.streamlit.io](https://share.streamlit.io)
+3. Connect GitHub repo
+4. Select `tools/dashboard.py` as main file
+5. Deploy! 🚀
+
+**Live Demo:** Coming soon...
 
 ---
 
